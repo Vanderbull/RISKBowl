@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="buttons.h" />
+    <ClInclude Include="CGridCell.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="enums.h" />
     <ClInclude Include="graphics.h" />

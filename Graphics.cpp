@@ -12,7 +12,10 @@ using namespace std;
 #include "Tolle_CBase.h"
 #include "Tolle_CMatrix.h"
 #include "Tolle_CScatter.h"
+#include "CGridCell.h"
 #pragma comment(lib,"msimg32.lib")	// for TransparentBlt() used below
+
+
 
 // Main handle to device context
 HDC gDC = 0;
@@ -802,23 +805,11 @@ DrawText(BackBuffer,"Press to choose team",-1,&accept_button, 0);
 	return 1;
 }
 
-// Pitch size is 15x26
-struct GridCell
-{
-    int mCellID;
-    int PosX;
-	int PosY;
-    int mCellType;
-	GridCell *UP;
-	GridCell *DOWN;
-	GridCell *LEFT;
-	GridCell *RIGHT;
-};
-
 int CGraphics::Menu(POINT pty)
 {
-	std::array<GridCell,390> BBPitch;
-		int NodeIndex = 0;
+	std::array<CGridCell,390> BBPitch;
+	int NodeIndex = 0;
+	
 	for(int y=0; y < (26*16); y+=16)
 	{
 		for(int x=0; x < (15*16); x+=16)
@@ -832,7 +823,7 @@ int CGraphics::Menu(POINT pty)
 		for(int i= 0; i < 390; i++)
 		{
 				RECT Rectangle;
-				SetRect(&Rectangle,BBPitch.at(i).PosX,BBPitch.at(i).PosY,BBPitch.at(i).PosX + 8,BBPitch.at(i).PosY +8);
+				SetRect(&Rectangle,BBPitch.at(i).PosX,BBPitch.at(i).PosY,BBPitch.at(i).PosX + 16,BBPitch.at(i).PosY +16);
 
 				FillRect(BackBuffer,&Rectangle,(HBRUSH)GetStockObject(GRAY_BRUSH));
 				if(PtInRect(&Rectangle,pty))
