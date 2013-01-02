@@ -1,6 +1,9 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
+#include <array>
+
+using namespace std;
 // these where defined in graphics.cpp
 //#pragma comment(lib,"psapi.lib")
 //#pragma comment(lib,"odbc32.lib")
@@ -9,6 +12,8 @@
 //#pragma comment(lib,"vfw32.lib")
 
 #define PI 3.14
+
+
 
 char buffer[100];
 int x = 0;

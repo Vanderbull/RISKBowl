@@ -11,10 +11,16 @@
 #include <ctime>
 #include <mmsystem.h>
 #include <iostream>
+#include <array>
 #include "graphics.h"
 #include "Input.h"
 #include "WindowManager.h"
 using namespace std;
+
+
+
+
+
 
 enum {GENERAL,AGILITY, PASSING, STRENGTH, KICKING, PHYSICAL};
 enum {BLOCK, DAUNTLESS, DIRTY_PLAYER, FRENZY, PASS_BLOCK, PRO, SHADOWING, STRIP_BALL, SURE_HANDS, TACKLE, TRIP_UP};
@@ -29,9 +35,45 @@ int gamestate = 0;
 float klock = 0;
 HCURSOR cursor;
 
+
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				   PSTR szCmdLine, int iCmdShow) 
 {
+	/*
+	std::array<GridCell,390> BBPitch = { 
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	};
+	*/
+
+
+
+
 	srand( time(0) );
 	Win32Wrapper      *g_pWindow;
 	HINSTANCE					 g_hInstance;
@@ -83,6 +125,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
+
 			g_Input->KeyPressed();
 			g_Game->EraseScreen();
 			g_Game->SplashScreen();

@@ -802,8 +802,44 @@ DrawText(BackBuffer,"Press to choose team",-1,&accept_button, 0);
 	return 1;
 }
 
+// Pitch size is 15x26
+struct GridCell
+{
+    int mCellID;
+    int PosX;
+	int PosY;
+    int mCellType;
+	GridCell *UP;
+	GridCell *DOWN;
+	GridCell *LEFT;
+	GridCell *RIGHT;
+};
+
 int CGraphics::Menu(POINT pty)
 {
+	std::array<GridCell,390> BBPitch;
+		int NodeIndex = 0;
+	for(int y=0; y < (26*16); y+=16)
+	{
+		for(int x=0; x < (15*16); x+=16)
+		{
+			BBPitch.at(NodeIndex).mCellID = NodeIndex;
+			BBPitch.at(NodeIndex).PosX = x;
+			BBPitch.at(NodeIndex).PosY = y;
+			NodeIndex++;
+		}
+	}
+		for(int i= 0; i < 390; i++)
+		{
+				RECT Rectangle;
+				SetRect(&Rectangle,BBPitch.at(i).PosX,BBPitch.at(i).PosY,BBPitch.at(i).PosX + 8,BBPitch.at(i).PosY +8);
+
+				FillRect(BackBuffer,&Rectangle,(HBRUSH)GetStockObject(GRAY_BRUSH));
+				if(PtInRect(&Rectangle,pty))
+				{
+					FillRect(BackBuffer,&Rectangle,(HBRUSH)GetStockObject(WHITE_BRUSH));
+				}
+		}
 	// Issues: Must make the menu check to see which flick that is active else
 	// it will trigger coach team every time as they are layered upon each other.
 	int new_button_top = (GetSystemMetrics(SM_CYSCREEN)/10)*2;

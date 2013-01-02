@@ -106,17 +106,6 @@
     <ClCompile Include="Tolle_CTemplates.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="release\BuildLog.htm" />
-    <None Include="Debug\BuildLog.htm">
-      <DeploymentContent>true</DeploymentContent>
-    </None>
-    <None Include="pics\button.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="did_you_know.txt" />
-    <Text Include="hall_of_fame.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

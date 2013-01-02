@@ -6,7 +6,8 @@ using namespace std;
 
 #define PI 3.14
 
-int BBPitch[15][26];
+// Pitch size is 15x26
+
 
 typedef struct griden
 {

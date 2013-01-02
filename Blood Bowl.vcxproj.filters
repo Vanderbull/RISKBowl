@@ -84,13 +84,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="release\BuildLog.htm" />
-    <None Include="Debug\BuildLog.htm" />
-    <None Include="pics\button.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="did_you_know.txt" />
-    <Text Include="hall_of_fame.txt" />
-  </ItemGroup>
 </Project>
