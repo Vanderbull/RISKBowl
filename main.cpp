@@ -1,6 +1,3 @@
-#define WIN32_LEAN_AND_MEAN
-#define _WIN32_WINNT 0x0501
-
 #ifndef HID_USAGE_PAGE_GENERIC
 #define HID_USAGE_PAGE_GENERIC         ((USHORT) 0x01)
 #endif

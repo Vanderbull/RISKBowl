@@ -296,7 +296,7 @@ bool CGraphics::Init(HWND hwnd)
 
 	hGraphics[0] = 0;
 
-	hGraphics[LOGO] = Bitmap->Load("pics/splash2.bmp");
+	hGraphics[LOGO] = Bitmap->Load("pics/menuback.bmp");
 	hGraphics[TEAMLOGOS128] = Bitmap->Load("pics/teamlogos/teamlogos128.bmp");
 	hGraphics[FIELD_BLIZZARD] = Bitmap->Load("pics/fields/plain/field_blizzard copy.bmp");
 	hGraphics[CUBE] = Bitmap->Load("pics/skavenfigure.bmp");

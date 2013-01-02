@@ -1,16 +1,12 @@
-//#include <iostream>
-//#include <string>
-//#include <windows.h>
-//#include <cmath>
 #include <vector>
-//#include <conio.h>
 #include <math.h>
-//#include <stdlib.h>
 #include <list>
-
-#define PI 3.14
 using namespace std;
 #include "Tolle_CBitmap.h"
+
+#define PI 3.14
+
+int BBPitch[15][26];
 
 typedef struct griden
 {
