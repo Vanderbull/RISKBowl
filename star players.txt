@@ -1,0 +1,131 @@
+[Name]
+Dummy
+
+[Team]
+Dwarf
+
+[Skills]
+Loner
+Hail Mary Pass
+Pass
+Secret Weapon
+Strong Arm
+Sure Hands
+Thick Skull
+
+[Cost]
+60000
+
+[Stats]
+[MA]
+6
+[ST]
+3
+[AG]
+3
+[AV]
+8
+
+[Name]
+Barik Farblast 
+
+[Team]
+Dwarf
+
+[Skills]
+Loner
+Hail Mary Pass
+Pass
+Secret Weapon
+Strong Arm
+Sure Hands
+Thick Skull
+
+[Cost]
+60000
+
+[Stats]
+[MA]
+6
+[ST]
+3
+[AG]
+3
+[AV]
+8
+
+
+
+// TEXT FORMAT FROM PDF
+
+Name Team/Skills Cost MA ST AG AV
+Barik Farblast Dwarf 60,000 6 3 3 8
+Skills Loner, Hail Mary Pass, Pass, Secret Weapon,
+Strong Arm, Sure Hands, Thick Skull
+Brick Far’th & Grotty Chaos, Nurgle, or Ogre
+(Note: you must have 2 slots open on your
+roster to induce this duo which counts only
+as one Star Player inducement)
+290,000
+Brick Far’th Skills Loner, Bone-head, Mighty Blow, Nerves of
+Steel, Strong Arm, Thick Skull, Throw
+Team-Mate
+5 5 2 9
+Grotty Skills Loner, Dodge, Right Stuff, Stunty 6 2 4 7
+Bomber Dribblesnot Goblin or Orc 60,000 6 2 3 7
+Skills Loner, Accurate, Bombardier, Dodge, No
+Hands, Right Stuff, Secret Weapon, Stunty
+Boomer Eziasson Dwarf or Norse 60,000 4 3 2 9
+Skills Loner, Accurate, Block, Bombardier, No Hands,
+Secret Weapon, Thick Skull
+Count Luthor Von Drakenborg Necromantic, Undead, or Vampire 390,000 6 5 4 9
+Skills Loner, Block, Dodge, Hypnotic Gaze,
+Regeneration
+Deeproot Strongbranch Halfling 250,000 2 7 1 10
+Skills Loner, Block, Mighty Blow, Stand Firm, Strong
+Arm, Thick Skull, Throw Team-Mate
+Eldril Sidewinder Dark Elf, Elf, High Elf or Wood Elf 170,000 8 3 4 7
+Skills Loner, Catch, Dodge, Hypnotic Gaze, Nerves
+of Steel, Pass Block
+Flint Churnblade Dwarf 100,000 5 3 2 8
+Skills Loner, Block, Chainsaw, No Hands, Secret
+Weapon, Thick Skull
+Fungus the Loon Goblin 80,000 4 7 3 7
+Skills Loner, Ball & Chain, Mighty Blow, No Hands,
+Secret Weapon, Stunty
+Grashnak Blackhoof Chaos, Chaos Dwarf, or Nurgle 310,000 6 6 2 8
+Skills Loner, Frenzy, Horns, Mighty Blow, Thick Skull
+Griff Oberwald Human 320,000 7 4 4 8
+Skills Loner, Block, Dodge, Fend, Sprint, Sure Feet
+Grim Ironjaw Dwarf 220,000 5 4 3 8
+Skills Loner, Block, Dauntless, Frenzy, Mighty Blow,
+Thick Skull
+Hack Enslash Khemri, Necromantic or Undead 90,000 6 3 2 7
+Skills Loner, Chainsaw, No Hands, Regeneration,
+Secret Weapon, Side Step
+Hakflem Skuttlespike Skaven 200,000 9 3 4 7
+Skills Loner, Dodge, Extra Arms, Prehensile Tail,
+Two Heads
+Headsplitter Skaven 340,000 6 6 3 8
+Skills Loner, Frenzy, Mighty Blow, Prehensile Tail
+Helmut Wulf Amazon, Human, Lizardman, Norse or Vampire 80,000 6 3 3 8
+Skills Loner, Chainsaw, No Hands, Secret Weapon,
+Stand Firm
+Hemlock Lizardman 170,000 8 2 3 7
+Skills Loner, Block, Dodge, Side Step, Jump Up,
+Stab, Stunty
+Horkon Heartripper Dark Elf 210,000 7 3 4 7
+Skills Loner, Dodge, Leap, Multiple Block,
+Shadowing, Stab
+Hthark the Unstoppable Chaos Dwarf 310,000 6 5 2 9
+Skills Loner, Block, Break Tackle, Juggernaut, Sprint,
+Sure Feet, Thick Skull
+Hubris Rakarth Dark Elf or Elf 260,000 7 4 4 8
+Skills Loner, Block, Dirty Player, Jump Up, Mighty
+Blow, Strip Ball
+Icepelt Hammerblow Norse 330,000 5 6 1 8
+Skills Loner, Claws, Disturbing Presence, Frenzy,
+Mighty Blow, Regeneration
+Jordell Freshbreeze Wood Elf or Elf 230,000 8 3 5 7
+Skills Loner, Block, Diving Catch, Dodge, Leap, Side
+Step
