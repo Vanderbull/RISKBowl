@@ -90,6 +90,7 @@
     <ClInclude Include="grid.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="League.h" />
+    <ClInclude Include="StarPlayers.h" />
     <ClInclude Include="Tolle_CBase.h" />
     <ClInclude Include="Tolle_CBitmap.h" />
     <ClInclude Include="Tolle_CMatrix.h" />

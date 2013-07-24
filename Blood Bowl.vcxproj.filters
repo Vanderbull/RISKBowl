@@ -66,6 +66,9 @@
     <ClInclude Include="League.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StarPlayers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="buttons.cpp">

@@ -1,0 +1,6 @@
+general
+agility
+passing
+strength
+mutation
+extraordinary
