@@ -807,6 +807,25 @@ DrawText(BackBuffer,"Press to choose team",-1,&accept_button, 0);
 
 int CGraphics::Menu(POINT pty)
 {
+	    // construction uses aggregate initialization
+    std::array<int, 3> a2 = {1, 2, 3}; // except after =
+    std::array<std::string, 2> a3 = { {std::string("a"), "b"} };
+ 
+    // container operations are supported
+   
+ 
+    // ranged for loop is supported
+    for(auto& s: a3)
+        std::cout << s << ' ';
+
+	// 1D ARRAY AS 2D
+	//for (int i = 0; i < Tiles.size(); i++) 
+	//{
+	//	int x = (i  % mapWidth) * 32; //You said tiles are 32 pixels, should be put into a constant.
+	//	int y = Math.floor(i / mapWidth) * 32;
+	//	Render the quad at (x, y)
+	//}
+
 	std::array<CGridCell,390> BBPitch;
 	int NodeIndex = 0;
 	
@@ -913,7 +932,7 @@ int CGraphics::Kickoff(HWND hwnd, POINT musi)
 	/*RECT client_window;*/
 	GetClientRect(hwnd,&client_window);
 
-	//b2->Grid(client_window.right/30,client_window.bottom/30,30.0);
+	b2->Grid(client_window.right/30,client_window.bottom/30,30.0,b2->v_grid[1][1].picture);
 	string temp_name = b2->v_grid[0][0].name;
 	b2->Draw();
 	grid_node2 grider;
@@ -928,15 +947,15 @@ int CGraphics::Kickoff(HWND hwnd, POINT musi)
 	b2->Check(temp_grid_node2);
 
 	b2->SetBitmap(hGraphics[9],3,3);
-	//SelectObject(BitmapDC, b2->v_grid[1][1].picture);
-	//TransparentBlt( BackBuffer, 0, 0, 
-	//Graphics[9].bmWidth, Graphics[9].bmHeight,
-	//BitmapDC, 0, 0, Graphics[9].bmWidth, Graphics[9].bmHeight, RGB(0,0,0) );
+	SelectObject(BitmapDC, b2->v_grid[1][1].picture);
+	TransparentBlt( BackBuffer, 0, 0, 
+	Graphics[9].bmWidth, Graphics[9].bmHeight,
+	BitmapDC, 0, 0, Graphics[9].bmWidth, Graphics[9].bmHeight, RGB(0,0,0) );
 //	b2->v_grid[0][0].picture
 
 	if(KEY_DOWN(VK_SPACE))
 	{
-	b2->Grid(rand()%10+5,rand()%10+5,10.0, hGraphics[10]);
+		b2->Grid(rand()%10+5,rand()%10+5,10.0, hGraphics[10]);
 	}
 
 	b2->Print();
@@ -986,9 +1005,9 @@ int CGraphics::Kickoff(HWND hwnd, POINT musi)
 			 Point3D( 640.0, 480.0, 20.0 ), //7
 	};
 
-	//for(int i = 0; i < 12; i++)
-	//{ b->Raster_Line3D(BackBuffer,b->projection(Points[ list.test(i,0) ]),b->projection(Points[ list.test(i,1) ]));
-	//}
+	for(int i = 0; i < 12; i++)
+	{ b->Raster_Line3D(BackBuffer,b->projection(Points[ list.test(i,0) ]),b->projection(Points[ list.test(i,1) ]));
+	}
 
 
 	// Notice: Writing all the game data to file for analysis and such.

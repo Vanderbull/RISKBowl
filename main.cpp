@@ -15,6 +15,7 @@
 #include "graphics.h"
 #include "Input.h"
 #include "WindowManager.h"
+#include "League.h"
 using namespace std;
 
 
@@ -40,6 +41,8 @@ HCURSOR cursor;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				   PSTR szCmdLine, int iCmdShow) 
 {
+	BaseLeague Circle_League;
+
 	/*
 	std::array<GridCell,390> BBPitch = { 
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -68,8 +71,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	};
-	*/
+	};*/
+	
 
 
 
