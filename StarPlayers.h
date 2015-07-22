@@ -19,12 +19,12 @@ public:
 
 	int AddPlayer(int iTeam){ cout << "Adding " << iTeam << " to this league..." << endl; };
 	int DropPlayer(int iTeamPosition){ cout << "Removing " << iTeamPosition << " from this league..." << endl; };
-	int RenderPlayere() { cout << "Rendering this league on screen..." << endl; };
+	int RenderPlayer() { cout << "Rendering this league on screen..." << endl; };
 	int GetPlayerName() { cout << "Asking team class for its name..." << endl; };
 
     BasePlayer()
     {
-		Team.clear();
+	Team.clear();
         cout << "Base Player class constructor initialized..." << endl;
     }
 
@@ -32,6 +32,4 @@ public:
     {
         cout << "Base Player class ended..." << endl;
     }
-
-	//virtual string print() = 0; // pure virtual
 };
