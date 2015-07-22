@@ -4,10 +4,8 @@
 class Win32Wrapper {
 
 public:
-	// public variables
-	
-	// public methods
-			Win32Wrapper(char *ClassName, char *WindowTitle, DWORD dwStyles, RECT *rect, HINSTANCE hInstance);
+
+	Win32Wrapper(char *ClassName, char *WindowTitle, DWORD dwStyles, RECT *rect, HINSTANCE hInstance);
 	virtual ~Win32Wrapper();
 
 	HWND Create();
@@ -20,13 +18,11 @@ public:
 	virtual LRESULT CALLBACK WinProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	bool bRun;
-	//bool bLMB;
 	POINT pt;
 
 private:
 	
 	HINSTANCE				m_hInstance;
-
 	DWORD					m_dwStyles;
 	RECT					*m_pRect;
 	char					*m_pClassName;
