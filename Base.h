@@ -167,188 +167,184 @@ public:
 class Base
 {
 public:
-    Base()
-    {
-        cout<<"Base class constructor"<<endl;
-    }
+    	Base()
+    	{
+        	cout<<"Base class constructor"<<endl;
+	}
 
-		virtual string print() = 0; // pure virtual
-		virtual int average(int turns) = 0; // pure virtual
-		virtual HBITMAP Image() = 0; // pure virtual
-		virtual RECT *Grid(HDC g,int x_size, int y_size) = 0; // pure virtual
-		virtual void Cursor(HDC g, POINT p) = 0; // pure virtual
-		virtual void movement_left(HDC g, int moves[24]) = 0;
-		virtual void ball_location(HDC g, int location) = 0;
-		virtual void Raster_Line(HDC g, double x1, double y1, double x2, double y2) = 0;
-		virtual void lineCircle(HDC g, int x1, int y1, int radius) = 0;
-		virtual void Raster_Line3D(HDC g, Point start, Point stop) = 0;
-		virtual Point3D projection(Point3D vertex) = 0;
-		virtual int sgn (long a)= 0;
-		virtual void status(HDC g, string text) = 0;
-		virtual void Scatter() = 0;
-		virtual void player(HDC g, int x, int y) = 0;
+	virtual string print() = 0; // pure virtual
+	virtual int average(int turns) = 0; // pure virtual
+	virtual HBITMAP Image() = 0; // pure virtual
+	virtual RECT *Grid(HDC g,int x_size, int y_size) = 0; // pure virtual
+	virtual void Cursor(HDC g, POINT p) = 0; // pure virtual
+	virtual void movement_left(HDC g, int moves[24]) = 0;
+	virtual void ball_location(HDC g, int location) = 0;
+	virtual void Raster_Line(HDC g, double x1, double y1, double x2, double y2) = 0;
+	virtual void lineCircle(HDC g, int x1, int y1, int radius) = 0;
+	virtual void Raster_Line3D(HDC g, Point start, Point stop) = 0;
+	virtual Point3D projection(Point3D vertex) = 0;
+	virtual int sgn (long a)= 0;
+	virtual void status(HDC g, string text) = 0;
+	virtual void Scatter() = 0;
+	virtual void player(HDC g, int x, int y) = 0;
 
-    virtual ~Base ()
-    {
-        cout<<"Base class Destructor"<<endl;
-    }
+    	virtual ~Base ()
+    	{
+		cout<<"Base class Destructor"<<endl;
+    	}
 };
 
 class Derived : virtual public Base
 {
 private:
 	RECT active_item;
-			list<string> SS;
+	list<string> SS;
 public:
 	RECT box;
 	RECT test[4500];
 
-    Derived()
-    {
-        cout<<"Derived class constructor"<<endl;
-    }
+    	Derived()
+    	{
+        	cout<<"Derived class constructor"<<endl;
+	}
 
-		string print()
+	string print()
+	{
+		return "Derived";
+	}
+
+	int average(int turns)
+	{
+		if(turns <= 8)
 		{
-
-			return "Derived";
+			return 5;
 		}
-
-		int average(int turns)
+		else if(turns <= 16)
 		{
-			if(turns <= 8)
-			{
-				return 5;
-			}
-			else if(turns <= 16)
-			{
-				return 5;
-			}
-			else if(turns > 16)
-			{
-				return 0;
-			}
-			else return -1;
+			return 5;
 		}
-
-		HBITMAP Image()
+		else if(turns > 16)
 		{
 			return 0;
 		}
+		else return -1;
+	}
 
-		RECT *Grid(HDC g,int x_size, int y_size)
+	HBITMAP Image()
+	{
+		return 0;
+	}
+
+	RECT *Grid(HDC g,int x_size, int y_size)
+	{
+		//int x_size = 16;
+		//int y_size = 26;
+		float zoom = 10.0;
+		std::vector< vector<grid_node> > v_grid;
+		vector<grid_node> row(x_size);
+		for( int i = 0; i < y_size; i++ )
 		{
-			//int x_size = 16;
-			//int y_size = 26;
-			float zoom = 10.0;
-			std::vector< vector<grid_node> > v_grid;
-			vector<grid_node> row(x_size);
-
-			for( int i = 0; i < y_size; i++ )
+			for(int j = 0; j < row.size(); j++)
 			{
-				for(int j = 0; j < row.size(); j++)
+				row[j].name = "Nimbus";
+				row[j].solid = 1;
+				row[j].x = 	j*zoom*2;
+				row[j].y = i*zoom*2;
+			}
+			v_grid.push_back(row);
+		}
+
+		for (int i = 0; i < v_grid.size(); i++)       // loops through each row of vy
+		{
+			for (int j = 0; j < v_grid[i].size(); j++)
+			{// loops through each element of each row
+				if(v_grid[i][j].solid != 0)
 				{
-					row[j].name = "Nimbus";
-					row[j].solid = 1;
-					row[j].x = 	j*zoom*2;
-					row[j].y = i*zoom*2;
+					SetPixelV(g,v_grid[i][j].x,v_grid[i][j].y,RGB(0,rand()%255,0));
 				}
-				v_grid.push_back(row);
-			}
-
-			for (int i = 0; i < v_grid.size(); i++)       // loops through each row of vy
-			{
-				for (int j = 0; j < v_grid[i].size(); j++)
-				{// loops through each element of each row
-					if(v_grid[i][j].solid != 0)
-					{
-						SetPixelV(g,v_grid[i][j].x,v_grid[i][j].y,RGB(0,rand()%255,0));
-					}
-				}// prints the jth element of the ith row
-			}
-			return test;
+			}// prints the jth element of the ith row
 		}
+		return test;
+	}
 
-		void Cursor(HDC g, POINT p)
+	void Cursor(HDC g, POINT p)
+	{
+		for( int x = 0; x < GetSystemMetrics(SM_CXSCREEN); x++ )
+			SetPixelV(g, x, p.y,RGB(0,255,0));
+		for( int y = 0; y < GetSystemMetrics(SM_CYSCREEN); y++ )
+			SetPixelV(g, p.x, y,RGB(0,255,0));
+	}
+
+	void movement_left(HDC g, int moves[24])
+	{
+		char buffer[100];
+		for( int x = 0; x < 24; x++ )
 		{
-						for( int x = 0; x < GetSystemMetrics(SM_CXSCREEN); x++ )
-							SetPixelV(g, x, p.y,RGB(0,255,0));
-							for( int y = 0; y < GetSystemMetrics(SM_CYSCREEN); y++ )
-								SetPixelV(g, p.x, y,RGB(0,255,0));
+			sprintf_s(buffer,"Player %d - moves left - %d\n", x, moves[x]);
+			TextOut(g,GetSystemMetrics(SM_CXSCREEN)-200,250+x*15,buffer,strlen(buffer));
+			//for( int x = 0; x < 24; x++ )
+			for( int y = 0; y < (moves[x]*10); y++ )
+				SetPixelV(g, 400 + x, y,RGB(0,255,0));
 		}
+	}
 
-		void movement_left(HDC g, int moves[24])
+	void ball_location(HDC g, int location)
+	{
+		char buffer[100];
+		for( int x = 0; x < 2; x++ )
 		{
-			char buffer[100];
-			for( int x = 0; x < 24; x++ )
-			{
-				sprintf_s(buffer,"Player %d - moves left - %d\n", x, moves[x]);
-				TextOut(g,GetSystemMetrics(SM_CXSCREEN)-200,250+x*15,buffer,strlen(buffer));
-				//for( int x = 0; x < 24; x++ )
-					for( int y = 0; y < (moves[x]*10); y++ )
-							SetPixelV(g, 400 + x, y,RGB(0,255,0));
-			}
-		}
-
-		void ball_location(HDC g, int location)
-		{
-			char buffer[100];
-			for( int x = 0; x < 2; x++ )
-			{
 			sprintf_s(buffer,"Location %d\n", location);
 			TextOut(g,GetSystemMetrics(SM_CXSCREEN)-300,450,buffer,strlen(buffer));
-			}
 		}
+	}
 
-		void status(HDC g, string text)
-		{
-				list<string>::const_iterator cii;
-
-				int temp[5] = {0};
+	void status(HDC g, string text)
+	{
+		list<string>::const_iterator cii;
+		int temp[5] = {0};
 		if(text != "")
 		{
 			SS.push_front(text);
 			temp[SS.size()] = rand()%100;
 		}
-	int rak = 0;
+		int rak = 0;
 		for(cii=SS.begin(); cii!=SS.end(); cii++)
-   {
+   		{
 			rak++;
-		 char buffer[100];
-		 string test;
-		 test = *cii;
-		 sprintf_s(buffer,"Location: %s",test);
-		 TextOut(g,GetSystemMetrics(SM_CXSCREEN)-400,450+(5*30),test.c_str(),strlen(test.c_str()));
-		 sprintf_s(buffer,"Location: %d",temp[rak]);
-		 TextOut(g,GetSystemMetrics(SM_CXSCREEN)-400,250+(5*30),buffer,strlen(buffer));
-		 //Sleep(10);
-
-   }
-	 if(SS.size() > 5)
-		 SS.pop_back();
+			char buffer[100];
+		 	string test;
+		 	test = *cii;
+		 	sprintf_s(buffer,"Location: %s",test);
+		 	TextOut(g,GetSystemMetrics(SM_CXSCREEN)-400,450+(5*30),test.c_str(),strlen(test.c_str()));
+		 	sprintf_s(buffer,"Location: %d",temp[rak]);
+		 	TextOut(g,GetSystemMetrics(SM_CXSCREEN)-400,250+(5*30),buffer,strlen(buffer));
+		 	//Sleep(10);
+   		}
+	 	if(SS.size() > 5)
+		SS.pop_back();
 	}
 
-		void Raster_Line(HDC g, double x1, double y1, double x2, double y2)
+	void Raster_Line(HDC g, double x1, double y1, double x2, double y2)
+	{
+		long i,sdx,sdy,dxabs,dyabs,x,y,px,py;
+		long dx,dy;
+		dx=x2-x1; /* the horizontal distance of the line */
+		dy=y2-y1; /* the vertical distance of the line */
+		dxabs=abs(dx);
+		dyabs=abs(dy);
+		sdx=sgn(dx);
+		sdy=sgn(dy);
+		x=dyabs>>1;
+		y=dxabs>>1;
+		px=x1;py=y1; 
+		if (dxabs>=dyabs) /* the line is more horizontal than vertical */
 		{
-			long i,sdx,sdy,dxabs,dyabs,x,y,px,py;
-			long dx,dy;
-			dx=x2-x1; /* the horizontal distance of the line */
-			dy=y2-y1; /* the vertical distance of the line */
-			dxabs=abs(dx);
-			dyabs=abs(dy);
-			sdx=sgn(dx);
-			sdy=sgn(dy);
-			x=dyabs>>1;
-			y=dxabs>>1;
-			px=x1;py=y1; 
-			if (dxabs>=dyabs) /* the line is more horizontal than vertical */
+			for(i=0;i<dxabs;i++)
 			{
-				for(i=0;i<dxabs;i++)
+				y+=dyabs;
+				if (y>=dxabs)
 				{
-					y+=dyabs;
-					if (y>=dxabs)
-					{
-						y-=dxabs;py+=sdy;
+					y-=dxabs;py+=sdy;
 				}
 				px+=sdx;
 				SetPixel(g,px,py,RGB(255,0,0));
@@ -368,84 +364,81 @@ public:
 				SetPixel(g,px,py,RGB(255,0,0));//plot_pixel(px,py,color);
 			}
 		} 
-		}
+	}
 
-		void lineCircle(HDC g,int x1, int y1, int radius)
+	void lineCircle(HDC g,int x1, int y1, int radius)
+	{
+		//LARGE_INTEGER start, stop;
+		//LARGE_INTEGER freq;
+		//QueryPerformanceFrequency(&freq);
+		//QueryPerformanceCounter(&start);
+		double startx = x1 + radius * cos(PI*2);
+		double starty = y1 + radius * sin(PI*2);
+		double px = x1 + radius * cos(PI*2);
+		double py = y1 + radius * sin(PI*2);
+		for (float Angle = 0.0f; Angle <= PI*2; Angle += 0.1f)
 		{
-			//LARGE_INTEGER start, stop;
-			//LARGE_INTEGER freq;
-			//QueryPerformanceFrequency(&freq);
-			//QueryPerformanceCounter(&start);
-
-			double startx = x1 + radius * cos(PI*2);
-			double starty = y1 + radius * sin(PI*2);
-			double px = x1 + radius * cos(PI*2);
-			double py = y1 + radius * sin(PI*2);
-			for (float Angle = 0.0f; Angle <= PI*2; Angle += 0.1f)
-			{
-				double x = x1 + radius * cos(Angle);
-				double y = y1 + radius * sin(Angle);
-				//use x and y to set your vertices
-				Raster_Line(g, px,py,x,y);
-
-				px = x;
-				py = y;
-			}
-			Raster_Line(g, px,py,startx,starty);
+			double x = x1 + radius * cos(Angle);
+			double y = y1 + radius * sin(Angle);
+			//use x and y to set your vertices
+			Raster_Line(g, px,py,x,y);
+			px = x;
+			py = y;
 		}
+		
+		Raster_Line(g, px,py,startx,starty);
+	}
 
-		int sgn (long a) 
+	int sgn (long a) 
+	{
+		if (a > 0) return +1;
+		else if (a < 0) return -1;
+		else return 0;
+	}
+
+	void Raster_Line3D(HDC g, Point start, Point end)
+	{
+		int i,dx,dy,sdx,sdy,dxabs,dyabs,x,y,px,py;
+		dx=end.getX()-start.getX(); /* the horizontal distance of the line */
+		dy=end.getY()-start.getY(); /* the vertical distance of the line */
+		dxabs=abs(dx);
+		dyabs=abs(dy);
+		sdx=sgn(dx);
+		sdy=sgn(dy);
+		x=dyabs>>1;
+		y=dxabs>>1;
+		px=start.getX();
+		py=start.getY();
+
+		if (dxabs>=dyabs) /* the line is more horizontal than vertical */
 		{
-			if (a > 0) return +1;
-			else if (a < 0) return -1;
-			else return 0;
-		}
-
-		void Raster_Line3D(HDC g, Point start, Point end)
-		{
-			int i,dx,dy,sdx,sdy,dxabs,dyabs,x,y,px,py;
-
-			dx=end.getX()-start.getX(); /* the horizontal distance of the line */
-			dy=end.getY()-start.getY(); /* the vertical distance of the line */
-			dxabs=abs(dx);
-			dyabs=abs(dy);
-			sdx=sgn(dx);
-			sdy=sgn(dy);
-			x=dyabs>>1;
-			y=dxabs>>1;
-			px=start.getX();
-			py=start.getY();
-
-			if (dxabs>=dyabs) /* the line is more horizontal than vertical */
-			{
 			for(i=0;i<dxabs;i++)
 			{
-			y+=dyabs;
-			if (y>=dxabs)
-			{
-			y-=dxabs;
-			py+=sdy;
+				y+=dyabs;
+				if (y>=dxabs)
+				{
+					y-=dxabs;
+					py+=sdy;
+				}
+				px+=sdx;
+				SetPixel(g,px,py,RGB(255,0,0));
 			}
-			px+=sdx;
-			SetPixel(g,px,py,RGB(255,0,0));
-			}
-			}
-			else /* the line is more vertical than horizontal */
-			{
+		}
+		else /* the line is more vertical than horizontal */
+		{
 			for(i=0;i<dyabs;i++)
 			{
-			x+=dxabs;
-			if (x>=dyabs)
-			{
-			x-=dyabs;
-			px+=sdx;
-			}
-			py+=sdy;
-			SetPixel(g,px,py,RGB(255,0,0));
-
+				x+=dxabs;
+				if (x>=dyabs)
+				{
+					x-=dyabs;
+					px+=sdx;
+				}
+				py+=sdy;
+				SetPixel(g,px,py,RGB(255,0,0));
 			}
 		}
-		}
+	}
 
 		Point3D projection(Point3D vertex)
 		{
