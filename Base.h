@@ -4,10 +4,7 @@
 using namespace std;
 #include "Tolle_CBitmap.h"
 
-#define PI 3.14
-
-// Pitch size is 15x26
-
+#define PI 3.14 // Move this to a generel header
 
 typedef struct griden
 {
@@ -35,7 +32,7 @@ typedef struct
 template <class T>
 T Add(T a, T b) //C++ function template sample
 {
-  return a+b;
+	return a+b;
 }
 
 template<class T> 
@@ -51,14 +48,14 @@ public:
 template<class T> class grid
 {
 private:
-    T *p; int w,h;
+	T *p; int w,h;
 
 public:
-    grid(int width,int height) : w(width),h(height) { p=new T[w*h]; }
-    ~grid(){ delete [] p; }
+	grid(int width,int height) : w(width),h(height) { p=new T[w*h]; }
+	~grid(){ delete [] p; }
 
-    T &operator()(int x,int y){ return p[(y*width)+x]; }
-    const T &operator()(int x,int y) const { return p[(y*width)+x]; }
+	T &operator()(int x,int y){ return p[(y*width)+x]; }
+	const T &operator()(int x,int y) const { return p[(y*width)+x]; }
 };
 
 class Line_list {
@@ -84,61 +81,69 @@ public:
 };
 
 class Point {
-    int _x, _y;
+	int _x, _y;
  
   public:
-    Point() {
-      _x = _y = 0;
-    }
-    Point(const int xval, const int yval) {
-      _x = xval;
-      _y = yval;
-    }
-    Point(const Point &from) {
-      _x = from._x;
-      _y = from._y;
-    }
+	Point() 
+	{
+		_x = _y = 0;
+	}
+	
+	Point(const int xval, const int yval) 
+	{
+		_x = xval;
+		_y = yval;
+    	}
+    	
+    	Point(const Point &from) 
+    	{
+      		_x = from._x;
+      		_y = from._y;
+    	}
 
-    ~Point() { /* Nothing to do! */ }
+    	~Point() { /* Nothing to do! */ }
  
-    void setX(const int val);
-    void setY(const int val);
-    int getX() { return _x; }
-    int getY() { return _y; }
-  };
+    	void setX(const int val);
+    	void setY(const int val);
+    	int getX() { return _x; }
+    	int getY() { return _y; }
+};
 
 class Point3D : public Point {
-    int _z;
+	int _z;
   
-  public:
-    Point3D() {
-      setX(0);
-      setY(0);
-      _z = 0;
-    }
-    Point3D(
-      const int x, 
-      const int y, 
-      const int z) : Point(x, y) {
-        _z = z;
-    }
+public:
+	Point3D() 
+	{
+      		setX(0);
+      		setY(0);
+      		_z = 0;
+    	}
+    	
+    	Point3D( const int x, const int y, const int z) : Point(x, y) 
+    	{
+        	_z = z;
+    	}
 
-    ~Point3D() { /* Nothing to do */ }
+    	~Point3D() { /* Nothing to do */ }
 
-    int getZ() { return _z; }
-    void setZ(const int val) { _z = val; }
-  };
+    	int getZ() { return _z; }
+    	void setZ(const int val) { _z = val; }
+	
+};
 
 class Point_storage {
 public:
 	std::vector<Point3D> *v_points;
 	
-  Point_storage() {
+  	Point_storage() 
+  	{
 		v_points->push_back(Point3D(500.0,200,-20.0));
 		v_points->push_back(Point3D(540.0,200.0,-20.0));
 		v_points->push_back(Point3D(500.0,400.0,-20.0));
 		v_points->push_back(Point3D(540.0,400.0,-20.0));
 	}
+	
 	Point3D test(int p) 
 	{
 		return v_points->at(1);
