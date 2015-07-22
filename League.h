@@ -22,7 +22,7 @@ public:
 
     BaseLeague()
     {
-		Team.clear();
+	Team.clear();
         cout << "Base League class constructor initialized..." << endl;
     }
 
@@ -30,6 +30,4 @@ public:
     {
         cout << "Base League class ended..." << endl;
     }
-
-	//virtual string print() = 0; // pure virtual
 };
