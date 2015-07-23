@@ -18,69 +18,28 @@
 #include "League.h"
 using namespace std;
 
-
-
-
-
-
 enum {GENERAL,AGILITY, PASSING, STRENGTH, KICKING, PHYSICAL};
 enum {BLOCK, DAUNTLESS, DIRTY_PLAYER, FRENZY, PASS_BLOCK, PRO, SHADOWING, STRIP_BALL, SURE_HANDS, TACKLE, TRIP_UP};
-
-//RAWINPUTDEVICE rid[1];
 
 CGraphics* g_Game = 0;
 CInput* g_Input = 0;
 
 int gamestate = 0;
 
-float klock = 0;
 HCURSOR cursor;
-
-
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 				   PSTR szCmdLine, int iCmdShow) 
 {
+	srand( time(0) );
+	srand(static_cast<unsigned int>(time(NULL)));
+	
 	BaseLeague Circle_League;
 
-	/*
-	std::array<GridCell,390> BBPitch = { 
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	};*/
+	Win32Wrapper	*g_pWindow;
+	HINSTANCE	g_hInstance;
+	HWND		wndHandle;
 	
-
-
-
-
-	srand( time(0) );
-	Win32Wrapper      *g_pWindow;
-	HINSTANCE					 g_hInstance;
-	HWND							 wndHandle;
 	g_hInstance = hInstance;
 	
 	RECT dimensions;
@@ -88,20 +47,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	dimensions.left		= GetSystemMetrics(SM_CYSCREEN)/4;
 	dimensions.bottom	= GetSystemMetrics(SM_CYSCREEN)/4*3;
 	dimensions.right	= GetSystemMetrics(SM_CXSCREEN)/4*3;
-	g_pWindow = new Win32Wrapper("Blood bowl","Blood bowl",WS_OVERLAPPEDWINDOW | WS_VISIBLE,&dimensions,g_hInstance);
+	g_pWindow = new Win32Wrapper("RISK bowl","RISK bowl",WS_OVERLAPPEDWINDOW | WS_VISIBLE,&dimensions,g_hInstance);
 
 	wndHandle = g_pWindow->Create();
 	g_pWindow->Show();
-
-	//Notice: Mouse related stuff
-	//Issues: Not used
-	//rid[0].usUsagePage = HID_USAGE_PAGE_GENERIC; 
-	//rid[0].usUsage = (USHORT) 0x02; 
-	//rid[0].dwFlags = RIDEV_INPUTSINK;   
-	//rid[0].hwndTarget = wndHandle;
-	//RegisterRawInputDevices(rid, 1, sizeof(rid[0]));
-
-	srand(static_cast<unsigned int>(time(NULL)));
 
 	g_Game = new CGraphics(GetSystemMetrics(SM_CXSCREEN)/64,GetSystemMetrics(SM_CYSCREEN)/64, wndHandle);
 	g_Input = new CInput();
@@ -118,7 +67,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	g_Game->Init(wndHandle);
 	SetCursor(cursor);
 	
-	MSG			msg = {0};
+	MSG msg = {0};
+	
 	while(msg.message != WM_QUIT)
 	{
 		if(PeekMessage (&msg,0,0,0,PM_REMOVE))
@@ -128,7 +78,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
-
 			g_Input->KeyPressed();
 			g_Game->EraseScreen();
 			g_Game->SplashScreen();
@@ -150,5 +99,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	delete g_pWindow;
 	delete g_Game;
 	delete g_Input;
-	return(msg.wParam) ;
+	return(msg.wParam);
 }
