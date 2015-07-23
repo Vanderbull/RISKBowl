@@ -31,12 +31,12 @@ HWND Win32Wrapper::Create()
 {
 	WNDCLASS WndCls;
 
-	WndCls.style			= CS_HREDRAW | CS_VREDRAW;
+	WndCls.style		= CS_HREDRAW | CS_VREDRAW;
 	WndCls.lpfnWndProc	= (WNDPROC)stWinProc;
-	WndCls.cbClsExtra		= 0;
-	WndCls.cbWndExtra		= 0;
-	WndCls.hInstance		= m_hInstance;
-	WndCls.hIcon			= 0;
+	WndCls.cbClsExtra	= 0;
+	WndCls.cbWndExtra	= 0;
+	WndCls.hInstance	= m_hInstance;
+	WndCls.hIcon		= 0;
 	WndCls.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	WndCls.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
 	WndCls.lpszMenuName	= NULL;
@@ -57,7 +57,7 @@ HWND Win32Wrapper::Create()
 
 	if (!m_hWnd)
 	{
-     PostQuitMessage(0);
+		PostQuitMessage(0);
 		 return false;
 	}
 	else
@@ -76,11 +76,11 @@ BOOL Win32Wrapper::Show()
 
 Win32Wrapper::Win32Wrapper(char *ClassName, char *WindowTitle, DWORD dwStyles, RECT *rect, HINSTANCE hInstance)
 {
-	m_pClassName		= ClassName;
+	m_pClassName	= ClassName;
 	m_pWindowTitle	= WindowTitle;
-	m_pRect					= rect;
-	m_hInstance			= hInstance;
-	m_dwStyles			= dwStyles;
+	m_pRect		= rect;
+	m_hInstance	= hInstance;
+	m_dwStyles	= dwStyles;
 
 	RECT desktopRect;
 
@@ -101,8 +101,7 @@ Win32Wrapper::~Win32Wrapper ()
 	{
  		DestroyWindow( m_hWnd );
 	}
-
-  m_hWnd = NULL;
+	m_hWnd = NULL;
 }
 
 LRESULT CALLBACK Win32Wrapper::WinProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -128,22 +127,16 @@ LRESULT CALLBACK Win32Wrapper::WinProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPAR
 	} break;
 	case WM_LBUTTONDOWN:
 		{
-		//DI& DIManager = DI::getInstance();
-		//DIManager.LButton = true;
 		}
 		break;
 	case WM_LBUTTONUP:
 		{
-		//DI& DIManager = DI::getInstance();
-		//DIManager.LButton = false;
 		}
 		break;
 
 	default:
 		{
-		//DI& DIManager = DI::getInstance();
-		//DIManager.LButton = false;
-		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+			return DefWindowProc(hWnd, uMsg, wParam, lParam);
 		}
 		break;
 	}
