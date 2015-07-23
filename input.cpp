@@ -12,59 +12,27 @@ void CInput::KeyPressed()
 		PostQuitMessage(0);
 	}
 	//--------------------------------------------
-	//	Movement keys for Character 1
+	//	Take actions on key events
 	//--------------------------------------------
-/*
 
-	if(KEY_DOWN(VK_UP) && Character.y > 0)
+	if(KEY_DOWN('W'))
 	{
-		Character.y -= Character.Velocity;
 	}
 
-	if(KEY_DOWN(VK_DOWN) && Character.y < GetSystemMetrics(SM_CYSCREEN)-64)
+	if(KEY_DOWN('S'))
 	{
-		Character.y += Character.Velocity;
-	}
-	if(right)
-	if(KEY_DOWN(VK_RIGHT) && Character.x < GetSystemMetrics(SM_CXSCREEN)-64)
-	{
-		Character.x += Character.Velocity;
-	}
-	if(left)
-	if(KEY_DOWN(VK_LEFT) && Character.x > 0)
-	{
-		Character.x -= Character.Velocity;
 	}
 
-	//--------------------------------------------
-	//	Movement keys for Character 2
-	//--------------------------------------------
-	if(KEY_DOWN('W') && Character2.y > 0)
+	if(KEY_DOWN('D'))
 	{
-		Character2.y -= Character2.Velocity;
 	}
 
-	if(KEY_DOWN('S') && Character2.y < 448)
+	if(KEY_DOWN('A'))
 	{
-		Character2.y += Character2.Velocity;
 	}
-
-	if(KEY_DOWN('D') && Character2.x < 576)
-	{
-		Character2.x += Character2.Velocity;
-	}
-
-	if(KEY_DOWN('A') && Character2.x > 0)
-	{
-		Character2.x -= Character2.Velocity;
-	}
-		
-	///////////////////////////////////////////
-*/
-
 }
-/*
-void CInput::SpreadAcorns()
+
+void CInput::GenerateRandomField()
 {
 	for(Col = 0; Col < FieldX; Col++)
 	{
@@ -75,13 +43,13 @@ void CInput::SpreadAcorns()
 	}
 }
 
-bool CInput::CheckForAcorns()
+bool CInput::CheckForFieldItem(int _id )
 {
 	for(Col = 0; Col < FieldX; Col++)
 	{
 		for(Row = 0; Row < FieldY; Row++)
 		{
-			if(AcornField[Row][Col] == 1)
+			if(AcornField[Row][Col] == _id)
 			{
 				return true;
 			}
@@ -90,6 +58,7 @@ bool CInput::CheckForAcorns()
 	return false;
 }
 
+/*
 bool CInput::Collecting()
 {
 	// Player 1 stuff
