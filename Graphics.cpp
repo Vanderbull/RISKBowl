@@ -13,14 +13,20 @@ using namespace std;
 #include "Tolle_CMatrix.h"
 #include "Tolle_CScatter.h"
 #include "CGridCell.h"
-#pragma comment(lib,"msimg32.lib")	// for TransparentBlt() used below
 
+#ifdef __linux__ 
+    //linux code goes here
+#elif _WIN32
+    // windows code goes here
+    #pragma comment(lib,"msimg32.lib")	// for TransparentBlt() used below
+#else
 
+#endif
 
 // Main handle to device context
 HDC gDC = 0;
 // Handle to BackBuffer context
-HDC	BackBuffer = 0;	
+HDC BackBuffer = 0;	
 // Handle to unknown
 HDC BitmapDC = 0;
 
@@ -53,7 +59,7 @@ HBITMAP hcurrent = 0;
 BITMAP current;
 RECT curr = {0,0,0,0};
 static bool place_ball = true;
-static bool active;
+static bool active = false;
 static bool carrier = false;
 static bool team_choosen = false;
 static bool colli = false;
@@ -68,14 +74,22 @@ static int ball_carrier = 0;
 static int first_players_score = 0;
 static int second_players_score = 0;
 static int temp_field[1000];
-static int team_number = NONE;
+static int team_number = 0;
 static int star_player_points[24];
 int rows = 15;
 int cols = 26;
 int wisdom_word = 0;
 std::vector<Point3D> Pointy3D;
 CBitmap* Bitmap = 0;
-fstream file_op("c:\\test_file.txt", ios::out);
+
+#ifdef __linux__ 
+    //linux code goes here
+#elif _WIN32
+    // windows code goes here
+    fstream file_op("c:\\test_file.txt", ios::out);
+#else
+
+#endif
 
 data datarec;
 
@@ -129,10 +143,6 @@ bool CGraphics::write(string filename)
 
 	do
 	{
-		//ostringstream oss;
-		//oss << "Lineman" << x;
-		//datarec.type = oss.str();
-		//datarec.tile_brush[x] = CreateSolidBrush(RGB(0, 255, 0));
 		success = WriteFile(filehandle,&datarec,sizeof(data), &numwrite,0);
 		if(!success)
 		{
@@ -152,7 +162,9 @@ bool CGraphics::write(string filename)
 bool CGraphics::GFI()
 {
 	int temp = 0;
+	
 	temp = rand()%6 +1;
+	
 	if(temp == 1)
 		return false;
 	else
@@ -162,21 +174,18 @@ bool CGraphics::GFI()
 bool CGraphics::Init(HWND hwnd)
 {
 	GetClientRect(hwnd,&client_window);
-  Grid<int> myIntGrid; // declares a grid that stores ints
-  myIntGrid.setElementAt(0, 0, 10);
-  int x = myIntGrid.getElementAt(0, 0);
+	Grid<int> myIntGrid; // declares a grid that stores ints
+	myIntGrid.setElementAt(0, 0, 10);
+	int x = myIntGrid.getElementAt(0, 0);
 
-  Grid<int> grid2(myIntGrid);
-  Grid<int> anotherIntGrid = grid2;
+	Grid<int> grid2(myIntGrid);
+	Grid<int> anotherIntGrid = grid2;
 
-  Grid<int>* myGridp = new Grid<int>();
-  myGridp->setElementAt(0, 0, 10);
-  x = myGridp->getElementAt(0, 0);
+	Grid<int>* myGridp = new Grid<int>();
+	myGridp->setElementAt(0, 0, 10);
+	x = myGridp->getElementAt(0, 0);
 
-  delete myGridp;
-
-	//RECT client_window;
-	//GetClientRect(hwnd,&client_window);
+	delete myGridp;
 
 	if(!(gDC = GetDC(main_window_handle)))
 		error();
@@ -193,49 +202,6 @@ bool CGraphics::Init(HWND hwnd)
 	SetBkColor(BackBuffer,RGB(0,0,0));
 	SetBkMode(BackBuffer,OPAQUE);
 
-	//int x_size = 14;
-	//int y_size = 26;
-	//float zoom = 10.0;
-	//std::vector< vector<grid_node> > v_grid;
-	//vector<grid_node> row(x_size);
-
-	//for( int i = 0; i < y_size; i++ )
-	//{
-	//	for(int j = 0; j < row.size(); j++)
-	//	{
-	//		row[j].name = "Nimbus";
-	//		row[j].solid = rand()%2;
-	//		row[j].x = 	j*zoom*3;
-	//		row[j].y = i*zoom*3;
-	//	}
-	//	v_grid.push_back(row);
-	//}
-
- // for (int i = 1; i < v_grid.size(); i++)       // loops through each row of vy
- // {
-	//	for (int j = 1; j < v_grid[i].size(); j++)
-	//	{// loops through each element of each row
-	//		if(v_grid[i][j].solid != 0)
-	//		{
-	//			SetRect(&datarec.box[i][j],v_grid[i][j].x-zoom,v_grid[i][j].y-zoom,v_grid[i][j].x+zoom,v_grid[i][j].y+zoom);
-	//			//RECT test = {v_grid[i][j].x,v_grid[i][j].y,v_grid[i][j].x+zoom,v_grid[i][j].y+zoom};
-	//			FillRect(BackBuffer,&datarec.box[i][j],(HBRUSH)GetStockObject(WHITE_BRUSH));
-	//			SetPixelV(BackBuffer,v_grid[i][j].x,v_grid[i][j].y,RGB(0,rand()%255,0));
-	//			file_op << v_grid[i][j].solid;
-	//			//file_op << v_grid[i][j].name << "," << v_grid[i][j].solid << ",";
-	//			Render();
-	//		}
-	//		else
-	//		{
-	//			file_op << " ";
-	//		}
-	//	}// prints the jth element of the ith row
-	//	file_op << endl;
-	//} 
-	//file_op.close();
-	//SplashScreen();
-	//Render();
-	//PostQuitMessage(0);
 	for(int temp = 0; temp < 24; temp++)
 	{
 		datarec.player_movement_left[temp] = 6;
@@ -255,8 +221,6 @@ bool CGraphics::Init(HWND hwnd)
 	}
 
 	wisdom_word = rand()%15 +1;
-
-	//read();
 	
 	////////////////////////////////////////////////////////////
 	// Initializing weather for 365 days                      //
@@ -264,10 +228,10 @@ bool CGraphics::Init(HWND hwnd)
 	Weather day[365]; // instantiate Weather object for 365 days
   
 	// declare array of base-class pointers and initialize
-  // each element to a derived-class type
-  Base *array[ 365 ];
-  // polymorphically invoke function print
-  for ( int i = 0; i < 365; i++ )
+	// each element to a derived-class type
+	Base *array[ 365 ];
+	// polymorphically invoke function print
+	for ( int i = 0; i < 365; i++ )
 	{
 		array[ i ] = &day[i];
 		file_op << array[ i ]->print();
@@ -277,7 +241,7 @@ bool CGraphics::Init(HWND hwnd)
 
 	string streng = "not set";
 
-  file_op << GFI();
+	file_op << GFI();
 
 	fstream file_ip("did_you_know.txt", ios::in);
 
@@ -366,9 +330,9 @@ bool CGraphics::Init(HWND hwnd)
 		i += cols - 1;
 	}
 	for(int temp = 0; temp < 1000; temp++)
-		{
-			temp_field[temp] = 0;
-		}
+	{
+		temp_field[temp] = 0;
+	}
 
 	grid_node2 grider;
 	grider.name = "";
@@ -382,11 +346,7 @@ bool CGraphics::Init(HWND hwnd)
 	b2->active_node(temp_grid_node2);
 	b2->Grid(client_window.right/30,client_window.bottom/30,30.0, hGraphics[10]);
 	b2->Init(BackBuffer);
-	//Matrix m(10,10);
- //  m(5,8) = 106.15;
- //  std::cout << m(5,8);
 
-	
 	return true;
 }
 
@@ -411,8 +371,8 @@ void CGraphics::SplashScreen()
 		SelectObject(BitmapDC,hGraphics[LOGO]);
 		
 		TransparentBlt( BackBuffer, 0, 0, 
-			Graphics[1].bmWidth, Graphics[1].bmHeight,
-			BitmapDC, 0, 0, Graphics[1].bmWidth, Graphics[1].bmHeight, RGB(0,0,0) );
+		Graphics[1].bmWidth, Graphics[1].bmHeight,
+		BitmapDC, 0, 0, Graphics[1].bmWidth, Graphics[1].bmHeight, RGB(0,0,0) );
 
 		SelectObject(BitmapDC, oldBitmapDCBmp);
 
@@ -439,15 +399,14 @@ void CGraphics::About()
 	SelectObject(BitmapDC,hGraphics[LOGO]);
 		
 	TransparentBlt( BackBuffer, GetSystemMetrics(SM_CXSCREEN)/4, GetSystemMetrics(SM_CYSCREEN)/4, 
-		Graphics[1].bmWidth, Graphics[1].bmHeight,
-		BitmapDC, 0, 0, Graphics[1].bmWidth, Graphics[1].bmHeight, RGB(0,0,0) );
+	Graphics[1].bmWidth, Graphics[1].bmHeight,
+	BitmapDC, 0, 0, Graphics[1].bmWidth, Graphics[1].bmHeight, RGB(0,0,0) );
 
 	SelectObject(BitmapDC, oldBitmapDCBmp);
 
 	string streng = "not set";
 	fstream file_ip("hall_of_fame.txt", ios::in);
 
-	//int temp = 0;
 	GetClientRect(main_window_handle,&rect);
 	getline(file_ip,streng,'#');
 	DrawText(BackBuffer,streng.c_str(),-1,&rect, DT_LEFT);
@@ -467,16 +426,15 @@ int CGraphics::BuyTeam(POINT Mouse_Loc)
 {
 	RECT PlayerStats;
 	RECT Player2Stats;
-	//RECT Information = {300,600,1200,1200};
 
 	PlayerStats.bottom = 100;
 	PlayerStats.top = 0;
-	PlayerStats.left =	600;
+	PlayerStats.left = 600;
 	PlayerStats.right = 800;
 
 	Player2Stats.bottom = 300;
 	Player2Stats.top = 0;
-	Player2Stats.left =	800;
+	Player2Stats.left = 800;
 	Player2Stats.right = 940;
 	
 	SelectObject(BitmapDC,hGraphics[13]);
@@ -526,8 +484,6 @@ int CGraphics::BuyTeam(POINT Mouse_Loc)
 	SetRect(&choices[7],260,130,390,260);
 	SetRect(&choices[8],390,130,520,260);
 
-
-
 	SelectObject(BitmapDC, hcurrent);
 	TransparentBlt( BackBuffer, 550, 250, 
 	139, current.bmHeight,
@@ -541,8 +497,6 @@ int CGraphics::BuyTeam(POINT Mouse_Loc)
 			hcurrent = hGraphics[13];
 			current = Graphics[13];
 			fDragRect = true;
-
-			//Coach->Pay(BackBuffer,50,Mouse_Loc,true);
 		}
 		if(PtInRect(&choices[2],Mouse_Loc))
 		{
@@ -550,8 +504,6 @@ int CGraphics::BuyTeam(POINT Mouse_Loc)
 			hcurrent = hGraphics[13];
 			current = Graphics[13];
 			fDragRect = true;
-
-			//Coach->Pay(BackBuffer,50,Mouse_Loc,true);
 		}
 		if(PtInRect(&choices[3],Mouse_Loc))
 		{
@@ -559,8 +511,6 @@ int CGraphics::BuyTeam(POINT Mouse_Loc)
 			hcurrent = hGraphics[13];
 			current = Graphics[13];
 			fDragRect = true;
-
-			//Coach->Pay(BackBuffer,50,Mouse_Loc,true);
 		}
 		if(PtInRect(&choices[4],Mouse_Loc))
 		{
@@ -568,74 +518,63 @@ int CGraphics::BuyTeam(POINT Mouse_Loc)
 			hcurrent = hGraphics[13];
 			current = Graphics[13];
 			fDragRect = true;
-
-			//Coach->Pay(BackBuffer,50,Mouse_Loc,true);
 		}
-
 	}
 
 	if(PtInRect(&choices[0],Mouse_Loc))
 	{
-		//Coach->ShowPaymentButton(BackBuffer, "Recruit", Mouse_Loc, BitmapDC, hGraphics[5],Graphics5);
 		DrawText(BackBuffer,"Skaven Storm Vermin\n"
-							"Qty: 0-12\n"
-							"Cost: 90,000 gps\n"
-							"MA: 7\n"
-							"ST: 3\n"
-							"AG: 3\n"
-							"AV: 8\n"
-							"Skills: Block",-1,&Player2Stats, 0);
+				"Qty: 0-12\n"
+				"Cost: 90,000 gps\n"
+				"MA: 7\n"
+				"ST: 3\n"
+				"AG: 3\n"
+				"AV: 8\n"
+				"Skills: Block",-1,&Player2Stats, 0);
 		
 		fDragRect = true;
 		return 3;
 	}
 	if(PtInRect(&choices[2],Mouse_Loc))
 	{
-		//Coach->ShowPaymentButton(BackBuffer, "Recruit",Mouse_Loc, BitmapDC, hGraphics[5],Graphics5);
 		DrawText(BackBuffer,"Skaven Linemen\n"
-							"Qty: 0-12\n"
-							"Cost: 50,000 gps\n"
-							"MA: 7\n"
-							"ST: 3\n"
-							"AG: 3\n"
-							"AV: 7\n"
-							"Skills: None",-1,&Player2Stats, 0);
+				"Qty: 0-12\n"
+				"Cost: 50,000 gps\n"
+				"MA: 7\n"
+				"ST: 3\n"
+				"AG: 3\n"
+				"AV: 7\n"
+				"Skills: None",-1,&Player2Stats, 0);
 		fDragRect = true;
 		return 3;
 	}
 	if(PtInRect(&choices[3],Mouse_Loc))
 	{
-		//Coach->ShowPaymentButton(BackBuffer, "Recruit",Mouse_Loc, BitmapDC, hGraphics[5],Graphics5);
 		DrawText(BackBuffer,"Skaven Gutter Runner"
-							"Qty: 0-12\n"
-							"Cost: 50,000 gps\n"
-							"MA: 9\n"
-							"ST: 2\n"
-							"AG: 4\n"
-							"AV: 7\n"
-							"Skills: Dodge",-1,&Player2Stats, 0);
+				"Qty: 0-12\n"
+				"Cost: 50,000 gps\n"
+				"MA: 9\n"
+				"ST: 2\n"
+				"AG: 4\n"
+				"AV: 7\n"
+				"Skills: Dodge",-1,&Player2Stats, 0);
 		fDragRect = true;
 		return 3;
 	}
 	if(PtInRect(&choices[4],Mouse_Loc))
 	{
-		//Coach->ShowPaymentButton(BackBuffer, "Recruit",Mouse_Loc, BitmapDC, hGraphics[5],Graphics5);
 		DrawText(BackBuffer,"Skaven Thrower\n"
-							"Qty: 0-12\n"
-							"Cost: 70,000 gps\n"
-							"MA: 7\n"
-							"ST: 3\n"
-							"AG: 3\n"
-							"AV: 7\n"
-							"Skills: Shure Hands"
-							"		 Pass"
-							,-1,&Player2Stats, 0);
+				"Qty: 0-12\n"
+				"Cost: 70,000 gps\n"
+				"MA: 7\n"
+				"ST: 3\n"
+				"AG: 3\n"
+				"AV: 7\n"
+				"Skills: Shure Hands, Pass",-1,&Player2Stats, 0);
 		fDragRect = true;
 		return 3;
 	}
 	
-//	Coach->ShowPaymentButton(BackBuffer, "Buy Team",Mouse_Loc, BitmapDC, hGraphics[5],Graphics[5]);
-
 	if( Bitmap->ShowButton(BackBuffer, 100, 100, Mouse_Loc, BitmapDC, hGraphics[5],Graphics[5]) )
 		return 3;
 	
@@ -646,8 +585,6 @@ int CGraphics::BuyTeam(POINT Mouse_Loc)
 int CGraphics::ChooseTeam(HWND hwnd, float frames,POINT pt)
 {
 	RECT accept_button;
-	//RECT client_window;
-	//GetClientRect(hwnd,&client_window);
 	SetRect(&accept_button,client_window.right-200,client_window.bottom-40,client_window.right,client_window.bottom);
 
 	//Notice: checks to see if the accept button is choosen
@@ -664,24 +601,24 @@ int CGraphics::ChooseTeam(HWND hwnd, float frames,POINT pt)
 
 	TransparentBlt( BackBuffer, 0, 0, client_window.right, client_window.bottom, BitmapDC, 0, 0, Graphics[TEAMLOGOS128].bmWidth, Graphics[TEAMLOGOS128].bmHeight, RGB(0,0,0) );
 
-if(PtInRect(&accept_button,pt))
+	if(PtInRect(&accept_button,pt))
 	{
 		SelectObject(BitmapDC,hGraphics[BUTTON]);
 		TransparentBlt( BackBuffer, accept_button.left-15, accept_button.top-15, Graphics[BUTTON].bmWidth, Graphics[BUTTON].bmHeight/2, BitmapDC, 0, 32, Graphics[BUTTON].bmWidth, Graphics[BUTTON].bmHeight/2, RGB(0,0,0) );
 	}
-else
-{
+	else
+	{
 		SelectObject(BitmapDC,hGraphics[BUTTON]);
 
 		TransparentBlt( BackBuffer, accept_button.left-15, accept_button.top-15, Graphics[BUTTON].bmWidth, Graphics[BUTTON].bmHeight/2, BitmapDC,0 , 0, Graphics[BUTTON].bmWidth, Graphics[BUTTON].bmHeight/2, RGB(0,0,0) );
-}
-DrawText(BackBuffer,"Press to choose team",-1,&accept_button, 0);
+	}
+	DrawText(BackBuffer,"Press to choose team",-1,&accept_button, 0);
 
 	//Notice: down know where curr is declared, and this shows the choice made graphically
 	//Issues: paints the choice in the upper left corner at the beginning before any choice is made
 	SelectObject(BitmapDC, hGraphics[6]);
 	TransparentBlt( BackBuffer, curr.left, curr.top, client_window.right/4, client_window.bottom/4,
-		BitmapDC, 0, 0, Graphics[6].bmWidth, Graphics[6].bmHeight, RGB(0,0,0) );
+	BitmapDC, 0, 0, Graphics[6].bmWidth, Graphics[6].bmHeight, RGB(0,0,0) );
 
 	//Notice: this is the topleft most choice
 	SetRect(&choices[0] , 0 , 0 ,  client_window.right/4,  Graphics[2].bmHeight/4);
@@ -719,8 +656,8 @@ DrawText(BackBuffer,"Press to choose team",-1,&accept_button, 0);
 		}
 	 for (int n=0;n<70;n++)
 	 {
-	   for (int m=0;m<130;m++)
-		 {
+		for (int m=0;m<130;m++)
+		{
 			 if(combat_grid->grid_node[n][m]->solid == false)
 				 SetPixelV(BackBuffer,location + n*tilesize,m*tilesize,RGB(0,255,0));
 			 if( pt.x == location + n*tilesize )
