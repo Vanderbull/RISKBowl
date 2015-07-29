@@ -4,9 +4,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-#define PI 3.14
-
-// Pitch size is 15x26
 
 class BaseLeague
 {
@@ -20,14 +17,14 @@ public:
 	int RenderLeague() { cout << "Rendering this league on screen..." << endl; };
 	int GetTeamName() { cout << "Asking team class for its name..." << endl; };
 
-    BaseLeague()
-    {
-	Team.clear();
-        cout << "Base League class constructor initialized..." << endl;
-    }
+	BaseLeague()
+	{
+		Team.clear();
+		cout << "Base League class constructor initialized..." << endl;
+	}
 
 	virtual ~BaseLeague()
-    {
-        cout << "Base League class ended..." << endl;
-    }
+	{
+        	cout << "Base League class destroyed..." << endl;
+	}
 };
